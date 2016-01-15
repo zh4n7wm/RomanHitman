@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # encoding: utf-8
 import os
-import sys
 import magic
 import base64
 import lzma
