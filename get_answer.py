@@ -48,6 +48,7 @@ def lzop_decompress(fname):
 def lzma_decompress(data):
     return lzma.decompress(data)
 
+
 def caesar_decode(data, num=47):
     res = ''
     for x in data:
@@ -81,7 +82,7 @@ def fib(n):
         return 0
     if n <= 2:
         return 1
-    return fib(n-1) + fib(n-2)
+    return fib(n - 1) + fib(n - 2)
 
 
 def get_q1_answer():
@@ -94,10 +95,12 @@ def get_q1_answer():
 def get_q2_answer():
     return fib(10)
 
+
 def get_q3_answer():
     """XXX sensitive day and datetime now format
     """
-    return datetime(1989, 6, 4).strftime('%m%d') + datetime.now().strftime('%d%m')
+    return datetime(1989, 6, 4).strftime('%m%d') + \
+        datetime.now().strftime('%d%M')
 
 
 if __name__ == '__main__':
@@ -112,5 +115,5 @@ if __name__ == '__main__':
     data = caesar_decode(data)
     print(data)
     print('QQ group number: %s' % get_group_number(data))
-    print('QQ verify code: Z%s%s%s' \
+    print('QQ verify code: Z%s%s%s'
           % (get_q1_answer(), get_q2_answer(), get_q3_answer()))
