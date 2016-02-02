@@ -26,7 +26,7 @@ def b64decode(data):
 
 
 def save_to_file(fname, data):
-    with open(fname, 'w') as f:
+    with open(fname, 'wb') as f:
         f.write(data)
 
 
@@ -36,7 +36,7 @@ def check_file_type(data):
 
 def lzop_decompress(fname):
     # lzo.decompress(data)
-    os.popen('lzop -fd %s' % fname)
+    os.system('lzop -fd %s' % fname)
     de_fname = os.path.splitext(fname)[0]
     # data = open(de_fname).read()
     data = ''.join(open(de_fname).readlines()[2:]).strip()
@@ -52,6 +52,7 @@ def lzma_decompress(data):
 def caesar_decode(data, num=47):
     res = ''
     for x in data:
+        x = chr(x)
         if x in (' ', '\n'):
             tmp = x
         elif 32 <= (ord(x) + num) <= 126:
