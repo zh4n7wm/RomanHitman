@@ -6,6 +6,9 @@ import base64
 import lzma
 from datetime import datetime
 import re
+import uu
+import sys
+import gzip
 """
 gist: https://gist.github.com/zealic/38510fd8ecd1be75924a
 zhihu: https://www.zhihu.com/question/28582088
@@ -104,18 +107,19 @@ def get_q3_answer():
 
 
 if __name__ == '__main__':
-    fname = 'Question.txt'
-    secret = b64decode(get_content(fname))
-    # print(check_file_type(secret))
-    fname = 'Q.lzo'
-    save_to_file(fname, secret)
-    data = lzop_decompress(fname)
-    data = b64decode(data)
+    in_file = 'Question.txt'
+    out_file = 'questions.bin'
+    uu.decode(in_file, out_file=out_file, mode='wb')
+    data = open(out_file).read()
     data = lzma_decompress(data)
+    data = base64.b64decode(''.join(data.split('\n')[2:]))
+    save_to_file(out_file, data)
+    data = gzip.open(out_file).read()
+    os.remove(out_file)
     question = caesar_decode(data)
     group_number = get_group_number(question)
     verify_code = 'Z%s%s%s' % (get_q1_answer(), get_q2_answer(), get_q3_answer())
-    # print(question)
-    # print('QQ group number: %s' % group_number)
-    # print('QQ verify code: %s' % verify_code)
-    print('抱歉，群主不让说。。')
+    print(question)
+    print('QQ group number: %s' % group_number)
+    print('QQ verify code: %s' % verify_code)
+    # print('抱歉，群主不让说。。')
